@@ -1,37 +1,16 @@
-/**
- * HERO COMPONENT
- * ===============
- * The main landing section that appears first when users visit your portfolio.
- *
- * What it displays:
- * - Profile photo (circular)
- * - Your name in large gradient text
- * - Your professional title
- * - Social media links (LinkedIn, GitHub, Resume)
- * - Scroll indicator at bottom
- *
- * How to customize:
- * - Profile photo: See detailed comments below
- * - Name: Line 50-52 (change "ALLAN ILYASOV")
- * - Title: Line 55-57 (change "AI/ML Engineer & Full-Stack Developer")
- * - Social links: Lines 61-88 (update URLs)
- * - Colors: Change blue-600, purple-600 to other Tailwind colors
- */
-
 import { LucideGithub, LucideLinkedin, FileText } from 'lucide-react';
 
 export default function Hero() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 py-20">
       <div className="max-w-4xl w-full text-center">
-        {/* PROFILE PHOTO */}
+        {/* Profile Photo */}
         <div className="mb-8 flex justify-center">
           {/*
-            ADJUSTING IMAGE SIZE:
-            Change w-70 h-70 on line 37 to:
+            Image Size Options (change w-48 h-48):
             - w-32 h-32 = small (128px)
             - w-40 h-40 = medium-small (160px)
-            - w-48 h-48 = medium (192px)
+            - w-48 h-48 = medium (192px) - current
             - w-56 h-56 = medium-large (224px)
             - w-64 h-64 = large (256px)
             - w-72 h-72 = extra-large (288px)
@@ -39,55 +18,36 @@ export default function Hero() {
           */}
           <div className="relative w-70 h-70 rounded-full overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600">
             {/*
-              ADJUSTING IMAGE POSITION WITHIN CIRCLE:
-
-              The objectPosition value controls where the image is positioned.
-              Format: 'horizontal% vertical%'
-
-              To move image LEFT: Use a LOWER first number (horizontal)
-              - '0% 50%' = far left, centered vertically
-              - '20% 50%' = slightly left
-              - '50% 50%' = centered (default)
-              - '80% 50%' = slightly right
-              - '100% 50%' = far right
-
-              To move image UP/DOWN: Change second number (vertical)
-              - '50% 0%' = centered horizontally, at top
-              - '50% 30%' = centered horizontally, slightly up
-              - '50% 50%' = perfectly centered
-              - '50% 70%' = centered horizontally, slightly down
-              - '50% 100%' = centered horizontally, at bottom
-
-              Your current value '10% 10%' means:
-              - Image is shifted LEFT (10% from left edge)
-              - Image is shifted UP (10% from top edge)
-
-              To move MORE to the left, use a SMALLER first number like '0% 10%'
-
-              ZOOM:
-              - scale(1.0) = normal size
-              - scale(1.2) = zoom in 20%
-              - scale(1.5) = zoom in 50%
-              - scale(0.8) = zoom out 20%
+              Image Zoom & Position:
+              1. Adjust 'transform: scale()' to zoom in/out on the image
+                 - scale(1.0) = no zoom (100%)
+                 - scale(1.5) = zoomed in to 150%
+                 - scale(0.8) = zoomed out to 80%
+              2. Adjust 'objectPosition' to reposition the image
+                 - 'center center' = centered (default)
+                 - 'center top' = centered horizontally, aligned to top
+                 - '50% 30%' = custom positioning
             */}
             <img
               src="profilepic.jpeg"
               alt="Allan Ilyasov"
               className="w-full h-full object-cover"
               style={{
-                transform: 'scale(1.2)',
-                objectPosition: '0% 10%'  // First number = horizontal (LEFT/RIGHT), Second = vertical (UP/DOWN)
+                transform: 'scale(1.0)',
+                objectPosition: '50% 20%'
               }}
             />
+            {/* Fallback if no image - remove this span after adding your photo */}
+            {/* <span className="text-7xl font-bold text-white">AI</span> */}
           </div>
         </div>
 
-        {/* NAME - Change your name here */}
+        {/* Name */}
         <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           ALLAN ILYASOV
         </h1>
 
-        {/* TITLE - Change your professional title here */}
+        {/* Title */}
         <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8">
           AI/ML Engineer & Full-Stack Developer
         </p>

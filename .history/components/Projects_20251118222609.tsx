@@ -1,25 +1,3 @@
-/**
- * PROJECTS COMPONENT
- * ==================
- * Interactive carousel that displays your GitHub projects.
- *
- * What it displays:
- * - "Projects" heading
- * - Carousel with left/right arrows (if more than 3 projects)
- * - Project cards showing title, description, and tech stack preview
- * - Click any card to open a modal with full details
- *
- * How to add/edit projects:
- * - Go to /lib/projects.ts and edit the projects array
- * - Each project needs: id, title, description, techStack, githubUrl, liveUrl (optional)
- *
- * How to customize:
- * - Change number of visible cards: Modify grid-cols-3 on line 68
- * - Change card colors: Edit bg-white and dark:bg-gray-800
- * - Change tech stack tag colors: Edit bg-blue-100 (lines 80-85)
- * - Remove carousel arrows: Delete lines 35-55
- */
-
 'use client';
 
 import { useState } from 'react';

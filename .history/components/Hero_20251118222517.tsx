@@ -75,7 +75,7 @@ export default function Hero() {
               alt="Allan Ilyasov"
               className="w-full h-full object-cover"
               style={{
-                transform: 'scale(1.2)',
+                transform: 'scale(2)',
                 objectPosition: '0% 10%'  // First number = horizontal (LEFT/RIGHT), Second = vertical (UP/DOWN)
               }}
             />
