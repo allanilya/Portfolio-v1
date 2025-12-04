@@ -22,7 +22,7 @@ import { LucideGithub, LucideLinkedin, FileText } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20">
+    <section className="min-h-screen flex flex-col items-center justify-center px-4 py-20">
       <div className="max-w-4xl w-full text-center">
         {/* PROFILE PHOTO */}
         <div className="mb-8 flex justify-center">
@@ -37,7 +37,7 @@ export default function Hero() {
             - w-72 h-72 = extra-large (288px)
             - w-80 h-80 = huge (320px)
           */}
-          <div className="relative w-72 h-72  overflow-hidden rounded-full">
+          <div className="relative w-70 h-70 rounded-full overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600">
             {/*
               ADJUSTING IMAGE POSITION WITHIN CIRCLE:
 
@@ -73,11 +73,10 @@ export default function Hero() {
             <img
               src="profilepic.jpeg"
               alt="Allan Ilyasov"
-              className="h-full object-cover"
+              className="w-full h-full object-cover"
               style={{
-                width: '100%',  // Make image wider than container so horizontal positioning works
-                transform: 'scale(1.1)',
-                objectPosition: '0% 0%'  // NOW both values work! First = left/right, Second = up/down
+                transform: 'scale(2)',
+                objectPosition: '0% 10%'  // First number = horizontal (LEFT/RIGHT), Second = vertical (UP/DOWN)
               }}
             />
           </div>
@@ -85,7 +84,7 @@ export default function Hero() {
 
         {/* NAME - Change your name here */}
         <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Allan Ilyasov
+          ALLAN ILYASOV
         </h1>
 
         {/* TITLE - Change your professional title here */}
@@ -114,7 +113,7 @@ export default function Hero() {
             GitHub
           </a>
           <a
-            href="/Allan Resume Portfolio.pdf"
+            href="/Allan Ilyasov Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 border-2 border-gray-800 dark:border-gray-200 text-gray-800 dark:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
