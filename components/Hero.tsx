@@ -114,7 +114,7 @@ export default function Hero() {
             GitHub
           </a>
           <a
-            href="/Allan Ilyasov Resume.pdf"
+            href="/Allan Resume Portfolio.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 border-2 border-gray-800 dark:border-gray-200 text-gray-800 dark:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
