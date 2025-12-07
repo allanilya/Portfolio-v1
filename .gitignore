@@ -42,3 +42,5 @@ next-env.d.ts
 
 # local history (VSCode extension)
 .history/
+
+node_modules/
