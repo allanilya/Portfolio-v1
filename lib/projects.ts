@@ -11,49 +11,49 @@ export const projects: Project[] = [
   {
     id: 1,
     title: "Codify AI",
-    description: "AI-powered programming tutor leveraging AWS Bedrock (Claude 4.5 haiku), achieving 50% response time improvement through optimized prompt engineering, and LangChain-based agentic workflows.",
+    description: "An AI-powered programming tutor that helps students learn coding through interactive conversations without just providing pasted code. Features real-time code assistance powered by Claude 4.5 haiku via AWS Bedrock, with intelligent agentic workflows that adapt to each student's learning pace.",
     techStack: ["React", "AWS Bedrock", "Flask", "DynamoDB", "Docker", "LangChain"],
     liveUrl: "https://codifyai.org"
   },
   {
     id: 2,
     title: "Time Series Forecasting for Financial Markets",
-    description: "Built ARIMA, LSTM, and GRU models for stock prediction (AAPL, NVDA, LYFT), achieving 64-82% RMSE reduction. Implemented grid search across 36 ARIMA configurations and built 2-layer LSTM/GRU architectures with dropout regularization. Conducted stationarity analysis using ADF tests and automated data extraction for 1,458+ trading days via yfinance API.",
+    description: "A comprehensive stock prediction system that analyzes and forecasts prices for AAPL, NVDA, and LYFT using multiple machine learning approaches. Combines traditional ARIMA statistical models with deep learning architectures (LSTM and GRU) to achieve highly accurate predictions across 1,458+ trading days.",
     techStack: ["Python", "TensorFlow", "Statsmodels", "LSTM", "GRU", "ARIMA", "yfinance"],
     githubUrl: "https://github.com/allanilya/Stock-analytics"
   },
   {
     id: 3,
     title: "Multimodal Video Analysis",
-    description: "Built full-stack AI video analysis platform with Flask/Next.js featuring CLIP-based visual search, transcript search, and Gemini 2.5 Flash multimodal chat with conversational memory. Engineered async parallel processing pipeline achieving <3s response time via background frame extraction and normalized cosine similarity for instant semantic search.",
+    description: "A full-stack video analysis platform that enables intelligent searching and interaction with video content. Features visual search using CLIP embeddings, transcript search, and an AI chat interface powered by Gemini 2.5 Flash that can answer questions about video content with conversational memory.",
     techStack: ["Flask", "Next.js", "CLIP", "Gemini 2.5 Flash", "Python", "React", "Async Processing"],
     githubUrl: "https://github.com/allanilya/Multimodal-Video-Analysis"
   },
     {
     id: 4,
     title: "NoScroll Content Blocker Script",
-    description: "Created CSS rules to block any access to short form content, while navigating Instagram & Youtube on iOS & MacOs Safari browser. To be used on any content blocking extension that supports custom CSS, such as '1Blocker' or 'AdGuard'.",
+    description: "Custom CSS rules designed to block short-form content on Instagram and YouTube while browsing on iOS and macOS Safari. Works with content blocking extensions like 1Blocker or AdGuard to help users avoid infinite scrolling and focus on intentional content consumption.",
     techStack: ["CSS", "1Blocker"],
     githubUrl: "https://github.com/allanilya/NoScroll"
   },
   {
     id: 5,
     title: "Diabetes Risk Prediction",
-    description: "Tested whether lifestyle or demographic factors are greater predictors of diabetes using a dataset of 230K+ patient records. Employed advanced data wrangling (imputation, encoding, outlier detection) and addressed class imbalance with SMOTE. Developed ML algorithms (Random Forest, Logistic Regression, KNN) with 5-fold cross-validation to predict diabetes risk.",
+    description: "A machine learning study comparing lifestyle versus demographic factors as predictors of diabetes risk using 230K+ patient records. Analyzes which factors—such as diet, exercise, and family history—are most significant in predicting diabetes, using ensemble methods and cross-validation for robust predictions.",
     techStack: ["Python", "Scikit-learn", "SMOTE", "Random Forest", "Logistic Regression", "KNN", "Pandas"],
     githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
   },
   {
     id: 6,
     title: "Student Performance Analytics",
-    description: "Utilized classification algorithms and data visualization methods to reveal the correlations of different attributes predicted to affect student academic performance. There are many factors explored, such as how study time, internet access, and alcohol consumption relate to student GPA.",
+    description: "An analytical exploration of factors affecting student academic performance through classification algorithms and data visualization. Examines how study time, internet access, alcohol consumption, and other variables correlate with student GPA to identify key predictors of academic success.",
     techStack: ["Python", "Scikit-learn", "Naive Bayes", "Random Forest", "Logistic Regression", "Decision Tree", "Pandas", "Jupyter Notebook"],
     githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
   },
   {
     id: 7,
     title: "Personal Portfolio Website",
-    description: "Developed a responsive personal portfolio website using Next.js and Tailwind CSS to showcase projects and skills. Implemented dark mode support and optimized for performance and SEO.",
+    description: "A modern, responsive portfolio website built with Next.js and Tailwind CSS featuring an interactive Matrix-style background, project showcases, and smooth navigation. Optimized for performance and SEO with server-side rendering and static generation.",
     techStack: ["Next.js", "Tailwind CSS", "React", "JavaScript", "Vercel"],
     githubUrl: "https://github.com/allanilya/Portfolio-v1",
     liveUrl: "https://allanilyasov.com"
@@ -61,7 +61,7 @@ export const projects: Project[] = [
   {
     id: 8,
     title: "Gapminder Global Trends",
-    description: "Created different visualizations in the Gapminder dataset to reveal global trends in life expectancy, population growth, and economic development over time. Used Shiny to create an interactive web application that allows users to explore these trends through dynamic charts and maps.",
+    description: "An interactive web application that visualizes global trends in life expectancy, population growth, and economic development using the Gapminder dataset. Features dynamic charts and maps built with R Shiny that allow users to explore historical patterns and regional differences across decades.",
     techStack: ["R", "Shiny"],
     githubUrl: "https://github.com/allanilya/Gapminder-Global-Trends"
   }
