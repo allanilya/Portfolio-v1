@@ -108,12 +108,14 @@ export default function Projects() {
         {/* Project Modal */}
         {selectedProject !== null && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 flex items-center justify-center z-[9999] p-4"
             onClick={() => setSelectedProject(null)}
+            style={{ zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           >
             <div
               className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative"
               onClick={(e) => e.stopPropagation()}
+              style={{ zIndex: 10000 }}
             >
               <button
                 onClick={() => setSelectedProject(null)}
