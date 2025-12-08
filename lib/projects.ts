@@ -30,13 +30,42 @@ export const projects: Project[] = [
     techStack: ["Flask", "Next.js", "CLIP", "Gemini 2.5 Flash", "Python", "React", "Async Processing"],
     githubUrl: "https://github.com/allanilya/Multimodal-Video-Analysis"
   },
-  {
+    {
     id: 4,
+    title: "NoScroll Content Blocker Script",
+    description: "Created CSS rules to block any access to short form content, while navigating Instagram & Youtube on iOS & MacOs Safari browser. To be used on any content blocking extension that supports custom CSS, such as '1Blocker' or 'AdGuard'.",
+    techStack: ["Css", "1Blocker"],
+    githubUrl: "https://github.com/allanilya/NoScroll"
+  },
+  {
+    id: 5,
     title: "Diabetes Risk Prediction",
     description: "Tested whether lifestyle or demographic factors are greater predictors of diabetes using a dataset of 230K+ patient records. Employed advanced data wrangling (imputation, encoding, outlier detection) and addressed class imbalance with SMOTE. Developed ML algorithms (Random Forest, Logistic Regression, KNN) with 5-fold cross-validation to predict diabetes risk.",
     techStack: ["Python", "Scikit-learn", "SMOTE", "Random Forest", "Logistic Regression", "KNN", "Pandas"],
     githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
   },
+  {
+    id: 6,
+    title: "Student Performance Analytics",
+    description: "Utilized classification algorithms and data visualization methods to reveal the correlations of different attributes predicted to affect student academic performance. There are many factors explored, such as how study time, internet access, and alcohol consumption relate to student GPA.",
+    techStack: ["Python", "Scikit-learn", "Naive Bayes", "Random Forest", "Logistic Regression", "Decision Tree", "Pandas", "Jupyter Notebook"],
+    githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
+  },
+  {
+    id: 7,
+    title: "Personal Portfolio Website",
+    description: "Developed a responsive personal portfolio website using Next.js and Tailwind CSS to showcase projects and skills. Implemented dark mode support and optimized for performance and SEO.",
+    techStack: ["Next.js", "Tailwind CSS", "React", "JavaScript", "Vercel"],
+    githubUrl: "https://github.com/allanilya/Portfolio-v1",
+    liveUrl: "https://allanilyasov.com"
+  },
+  {
+    id: 8,
+    title: "Gapminder Global Trends",
+    description: "Created different visualizations in the Gapminder dataset to reveal global trends in life expectancy, population growth, and economic development over time. Used Shiny to create an interactive web application that allows users to explore these trends through dynamic charts and maps.",
+    techStack: ["R", "Shiny"],
+    githubUrl: "https://github.com/allanilya/Gapminder-Global-Trends"
+  }
   // Add your projects here following the same format
   // Example:
   // {
