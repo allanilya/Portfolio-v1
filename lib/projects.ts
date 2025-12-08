@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   techStack: string[];
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
 }
 
@@ -13,7 +13,6 @@ export const projects: Project[] = [
     title: "Codify AI",
     description: "AI-powered programming tutor leveraging AWS Bedrock (Claude 4.5 haiku), achieving 50% response time improvement through optimized prompt engineering, and LangChain-based agentic workflows.",
     techStack: ["React", "AWS Bedrock", "Flask", "DynamoDB", "Docker", "LangChain"],
-    githubUrl: "https://github.com/allanilya/codify-ai",
     liveUrl: "https://codifyai.org"
   },
   {
@@ -34,7 +33,7 @@ export const projects: Project[] = [
     id: 4,
     title: "NoScroll Content Blocker Script",
     description: "Created CSS rules to block any access to short form content, while navigating Instagram & Youtube on iOS & MacOs Safari browser. To be used on any content blocking extension that supports custom CSS, such as '1Blocker' or 'AdGuard'.",
-    techStack: ["Css", "1Blocker"],
+    techStack: ["CSS", "1Blocker"],
     githubUrl: "https://github.com/allanilya/NoScroll"
   },
   {

@@ -30,20 +30,32 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  /**
+   * Advances the carousel to the next project in the main view
+   */
   const nextProject = () => {
     setCurrentIndex((prev) => (prev + 1) % projects.length);
   };
 
+  /**
+   * Moves the carousel to the previous project in the main view
+   */
   const prevProject = () => {
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
   };
 
-  // Navigation functions for modal
+  /**
+   * Gets the array index of the currently selected project in the modal
+   * @returns The index of the selected project, or -1 if no project is selected
+   */
   const getCurrentProjectIndex = () => {
     if (selectedProject === null) return -1;
     return projects.findIndex((p) => p.id === selectedProject);
   };
 
+  /**
+   * Navigates to the next project in the modal view
+   */
   const nextProjectInModal = () => {
     const currentIdx = getCurrentProjectIndex();
     if (currentIdx === -1) return;
@@ -51,6 +63,9 @@ export default function Projects() {
     setSelectedProject(projects[nextIdx].id);
   };
 
+  /**
+   * Navigates to the previous project in the modal view
+   */
   const prevProjectInModal = () => {
     const currentIdx = getCurrentProjectIndex();
     if (currentIdx === -1) return;
@@ -84,6 +99,10 @@ export default function Projects() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedProject]);
 
+  /**
+   * Gets the subset of projects to display in the carousel
+   * @returns All projects if there are 3 or fewer, otherwise returns the previous, current, and next projects
+   */
   const getVisibleProjects = () => {
     if (projects.length <= 3) return projects;
 
@@ -105,14 +124,14 @@ export default function Projects() {
             <>
               <button
                 onClick={prevProject}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow"
+                className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
                 aria-label="Previous project"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={nextProject}
-                className="absolute right-0 top-1/2  top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow"
+                className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
                 aria-label="Next project"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -121,15 +140,17 @@ export default function Projects() {
           )}
 
           {/* Project Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12 min-h-[440px]">
             {getVisibleProjects().map((project) => (
               <div
                 key={project.id}
-                className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 overflow-hidden"
+                className={`group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 overflow-hidden ${
+                  !project.liveUrl ? 'self-start' : ''
+                }`}
               >
                 {/* Preview Section */}
                 {project.liveUrl && (
-                  <div 
+                  <div
                     className="relative w-full h-48 bg-gray-100 dark:bg-gray-900 overflow-hidden cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -139,7 +160,7 @@ export default function Projects() {
                     <iframe
                       src={project.liveUrl}
                       className="w-full h-full border-0 pointer-events-none"
-                      style={{ 
+                      style={{
                         transform: 'scale(0.5)',
                         transformOrigin: 'top left',
                         width: '200%',
@@ -157,8 +178,8 @@ export default function Projects() {
                     </div>
                   </div>
                 )}
-                
-                <div 
+
+                <div
                   className="p-6 cursor-pointer"
                   onClick={() => setSelectedProject(project.id)}
                 >
@@ -196,6 +217,24 @@ export default function Projects() {
               </div>
             ))}
           </div>
+
+          {/* Navigation Dots for Main Carousel */}
+          {projects.length > 3 && (
+            <div className="flex justify-center gap-2 mt-8">
+              {projects.map((project, index) => (
+                <button
+                  key={project.id}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    currentIndex === index
+                      ? 'bg-blue-600 dark:bg-blue-400 scale-125'
+                      : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                  }`}
+                  aria-label={`Go to project ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Project Modal */}
@@ -297,15 +336,17 @@ export default function Projects() {
                   </div>
 
                   <div className="flex flex-wrap gap-4">
-                    <a
-                      href={projects.find((p) => p.id === selectedProject)!.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors"
-                    >
-                      <Github className="w-5 h-5" />
-                      View on GitHub
-                    </a>
+                    {projects.find((p) => p.id === selectedProject)!.githubUrl && (
+                      <a
+                        href={projects.find((p) => p.id === selectedProject)!.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors"
+                      >
+                        <Github className="w-5 h-5" />
+                        View on GitHub
+                      </a>
+                    )}
                     {projects.find((p) => p.id === selectedProject)!.liveUrl && (
                       <a
                         href={projects.find((p) => p.id === selectedProject)!.liveUrl}
