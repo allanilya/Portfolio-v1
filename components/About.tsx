@@ -21,7 +21,7 @@ export default function About() {
     <section id="about" className="relative z-10 py-20 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Section Heading */}
-        <h2 className="text-4xl font-bold mb-8 text-center">About Me</h2>
+        <h2 className="text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
 
         {/* Content Card */}
         <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
