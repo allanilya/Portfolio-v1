@@ -45,7 +45,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map(item => item.href.substring(1));
-      const scrollPosition = window.scrollY +800;
+      const scrollPosition = window.scrollY +500;
 
       for (const section of sections) {
         const element = document.getElementById(section);
