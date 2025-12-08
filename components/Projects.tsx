@@ -120,36 +120,36 @@ export default function Projects() {
         </h2>
         {/* Carousel Controls */}
         <div className="relative">
-          {projects.length > 3 && (
-            <>
-              <button
-                onClick={prevProject}
-                className="hidden md:block absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
-                aria-label="Previous project"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button
-                onClick={nextProject}
-                className="hidden md:block absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
-                aria-label="Next project"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </>
-          )}
-
           {/* Project Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-12 min-h-[380px] md:min-h-[480px]">
+          <div className="grid grid-cols-1 min-h-[413px] md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-12">
             {getVisibleProjects().map((project) => (
+              /*
+                PROJECT CARD - Height Controls
+
+                Customize the card height:
+                - max-h-[500px]: Maximum card height (current: 500px)
+                  - Increase: max-h-[600px], max-h-[700px], etc.
+                  - Decrease: max-h-[400px], max-h-[450px], etc.
+                  - Remove max-h to allow unlimited height
+
+                - h-full: Makes all cards the same height (match tallest card)
+                - flex flex-col: Enables vertical layout with flex-grow on description
+                - overflow-hidden: Hides content that exceeds card bounds
+
+                How it works:
+                - Cards grow to match the tallest card in the row
+                - If tallest card exceeds max-h, all cards cap at that height
+                - Description text uses remaining space with flex-grow
+                - Text that exceeds available space will be cut off (no ellipsis without line-clamp)
+              */
               <div
                 key={project.id}
-                className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 overflow-hidden self-start"
+                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full min-h-[430px] max-h-[430px]"
               >
-                {/* Preview Section */}
+                {/* Preview Section - Only shown if liveUrl exists */}
                 {project.liveUrl && (
                   <div
-                    className="relative w-full h-48 bg-gray-100 dark:bg-gray-900 overflow-hidden cursor-pointer"
+                    className="relative w-full h-40 bg-gray-900 overflow-hidden cursor-pointer flex-shrink-0"
                     onClick={(e) => {
                       e.stopPropagation();
                       window.open(project.liveUrl, '_blank');
@@ -169,45 +169,49 @@ export default function Projects() {
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <div className="bg-white/90 dark:bg-gray-800/90 px-4 py-2 rounded-lg flex items-center gap-2">
-                        <ExternalLink className="w-5 h-5 text-blue-600" />
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">Open Live Site</span>
+                      <div className="bg-gray-800/90 px-4 py-2 rounded-lg flex items-center gap-2">
+                        <ExternalLink className="w-5 h-5 text-blue-400" />
+                        <span className="text-sm font-medium text-white">Open Live Site</span>
                       </div>
                     </div>
                   </div>
                 )}
 
                 <div
-                  className="p-6 cursor-pointer"
+                  className="p-4 cursor-pointer flex-grow flex flex-col"
                   onClick={() => setSelectedProject(project.id)}
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {/* Title Section */}
+                  <div className="flex items-start justify-between mb-2 flex-shrink-0">
+                    <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
                     {project.liveUrl && (
-                      <ExternalLink className="w-5 h-5 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2" />
+                      <ExternalLink className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2" />
                     )}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 text-sm leading-relaxed">
+
+                  {/*
+                    PROJECT DESCRIPTION - Text truncation with ellipsis
+
+                    This section expands to fill available space with a maximum of 6 lines.
+                    Text exceeding 6 lines will be cut off with "..." at the end.
+                    The "Click to view details" section below will always remain visible at the bottom.
+
+                    Customize the appearance:
+                    - Text size: text-base (current) | text-sm (smaller) | text-lg (larger)
+                    - line-clamp-6: Shows max 6 lines before adding "..." (change to line-clamp-4, line-clamp-8, etc.)
+                    - flex-grow: Allows text to fill available space
+                    - The full description is always shown in the expanded modal view
+
+                    Note: Tech stack is hidden on cards and only shown in the expanded modal view
+                  */}
+                  <p className="text-gray-400 mb-3 text-base leading-relaxed flex-grow overflow-hidden line-clamp-6">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.techStack.slice(0, 3).map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-2.5 py-1 bg-gradient-to-r from-blue-100 to-blue-50 dark:from-blue-900 dark:to-blue-800 text-blue-800 dark:text-blue-200 rounded-md text-xs font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 3 && (
-                      <span className="px-2.5 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-md text-xs font-medium">
-                        +{project.techStack.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                  <div className="pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+
+                  {/* Click to view details - Fixed at bottom */}
+                  <div className="pt-3 border-t border-gray-700 flex items-center gap-2 text-xs text-gray-400 flex-shrink-0 mt-auto">
                     <Github className="w-4 h-4" />
                     <span>Click to view details</span>
                   </div>
@@ -216,21 +220,42 @@ export default function Projects() {
             ))}
           </div>
 
-          {/* Navigation Dots for Main Carousel */}
+          {/* Navigation Controls - Dots with Left/Right Buttons */}
           {projects.length > 3 && (
-            <div className="flex justify-center gap-2 mt-8">
-              {projects.map((project, index) => (
-                <button
-                  key={project.id}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    currentIndex === index
-                      ? 'bg-blue-600 dark:bg-blue-400 scale-125'
-                      : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-                  }`}
-                  aria-label={`Go to project ${index + 1}`}
-                />
-              ))}
+            <div className="flex items-center justify-center gap-6 mt-8">
+              {/* Previous Button */}
+              <button
+                onClick={prevProject}
+                className="bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-700"
+                aria-label="Previous project"
+              >
+                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+
+              {/* Navigation Dots */}
+              <div className="flex gap-2">
+                {projects.map((project, index) => (
+                  <button
+                    key={project.id}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      currentIndex === index
+                        ? 'bg-blue-400 scale-125'
+                        : 'bg-gray-600 hover:bg-gray-500'
+                    }`}
+                    aria-label={`Go to project ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={nextProject}
+                className="bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-700"
+                aria-label="Next project"
+              >
+                <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
             </div>
           )}
         </div>
@@ -238,38 +263,12 @@ export default function Projects() {
         {/* Project Modal */}
         {selectedProject !== null && (
           <div
-            className="fixed inset-0 flex items-start justify-center z-[9999] p-4 pt-20 md:pt-24 overflow-y-auto"
+            className="fixed inset-0 flex items-center justify-center z-[9999] p-4 overflow-y-auto"
             onClick={() => setSelectedProject(null)}
             style={{ zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           >
-            {/* Navigation Arrows - Outside modal box */}
-            {projects.length > 1 && (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevProjectInModal();
-                  }}
-                  className="absolute left-2 md:left-4 lg:left-60 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-200 dark:border-gray-700 z-[10001]"
-                  aria-label="Previous project"
-                >
-                  <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextProjectInModal();
-                  }}
-                  className="absolute right-2 md:right-4 lg:right-60 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-200 dark:border-gray-700 z-[10001]"
-                  aria-label="Next project"
-                >
-                  <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-                </button>
-              </>
-            )}
-
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-6 lg:p-8 relative mx-12 md:mx-16 lg:mx-20 xl:mx-24"
+              className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-6 lg:p-6 relative"
               onClick={(e) => e.stopPropagation()}
               style={{ zIndex: 10000 }}
             >
@@ -308,7 +307,7 @@ export default function Projects() {
                         </div>
                         <iframe
                           src={projects.find((p) => p.id === selectedProject)!.liveUrl}
-                          className="w-full h-[400px] border-0"
+                          className="w-full h-[320px] border-0"
                           title={`${projects.find((p) => p.id === selectedProject)!.title} Preview`}
                           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                           loading="lazy"
@@ -358,27 +357,54 @@ export default function Projects() {
                     )}
                   </div>
 
-                  {/* Navigation Dots */}
+                  {/* Navigation Controls - Arrows and Dots */}
                   {projects.length > 1 && (
-                    <div className="flex justify-center gap-2 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                      {projects.map((project, index) => {
-                        const currentIdx = getCurrentProjectIndex();
-                        return (
-                          <button
-                            key={project.id}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedProject(project.id);
-                            }}
-                            className={`w-3 h-3 rounded-full transition-all ${
-                              currentIdx === index
-                                ? 'bg-blue-600 dark:bg-blue-400 scale-125'
-                                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-                            }`}
-                            aria-label={`Go to project ${index + 1}`}
-                          />
-                        );
-                      })}
+                    <div className="flex items-center justify-center gap-4 mt-5 pt-2 border-t border-gray-200 dark:border-gray-700">
+                      {/* Previous Button */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          prevProjectInModal();
+                        }}
+                        className="bg-gray-800 dark:bg-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-700 dark:border-gray-600"
+                        aria-label="Previous project"
+                      >
+                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+                      </button>
+
+                      {/* Navigation Dots */}
+                      <div className="flex gap-2">
+                        {projects.map((project, index) => {
+                          const currentIdx = getCurrentProjectIndex();
+                          return (
+                            <button
+                              key={project.id}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedProject(project.id);
+                              }}
+                              className={`w-3 h-3 rounded-full transition-all ${
+                                currentIdx === index
+                                  ? 'bg-blue-600 dark:bg-blue-400 scale-125'
+                                  : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                              }`}
+                              aria-label={`Go to project ${index + 1}`}
+                            />
+                          );
+                        })}
+                      </div>
+
+                      {/* Next Button */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          nextProjectInModal();
+                        }}
+                        className="bg-gray-800 dark:bg-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-700 dark:border-gray-600"
+                        aria-label="Next project"
+                      >
+                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+                      </button>
                     </div>
                   )}
                 </>
