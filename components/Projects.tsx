@@ -115,7 +115,7 @@ export default function Projects() {
   return (
     <section id="projects" className="relative z-10 py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Projects
         </h2>
         {/* Carousel Controls */}
@@ -124,14 +124,14 @@ export default function Projects() {
             <>
               <button
                 onClick={prevProject}
-                className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
+                className="hidden md:block absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
                 aria-label="Previous project"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={nextProject}
-                className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
+                className="hidden md:block absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110"
                 aria-label="Next project"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -140,13 +140,11 @@ export default function Projects() {
           )}
 
           {/* Project Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12 min-h-[440px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-12 min-h-[380px] md:min-h-[480px]">
             {getVisibleProjects().map((project) => (
               <div
                 key={project.id}
-                className={`group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 overflow-hidden ${
-                  !project.liveUrl ? 'self-start' : ''
-                }`}
+                className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 overflow-hidden self-start"
               >
                 {/* Preview Section */}
                 {project.liveUrl && (
@@ -240,7 +238,7 @@ export default function Projects() {
         {/* Project Modal */}
         {selectedProject !== null && (
           <div
-            className="fixed inset-0 flex items-center justify-center z-[9999] p-4"
+            className="fixed inset-0 flex items-start justify-center z-[9999] p-4 pt-20 md:pt-24 overflow-y-auto"
             onClick={() => setSelectedProject(null)}
             style={{ zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           >
@@ -252,26 +250,26 @@ export default function Projects() {
                     e.stopPropagation();
                     prevProjectInModal();
                   }}
-                  className="absolute left-4 md:left-90 top-1/2 -translate-y-1/2 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-200 dark:border-gray-700 z-[10001]"
+                  className="absolute left-2 md:left-4 lg:left-60 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-200 dark:border-gray-700 z-[10001]"
                   aria-label="Previous project"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
                 </button>
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     nextProjectInModal();
                   }}
-                  className="absolute right-4 md:right-90 top-1/2 -translate-y-1/2 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-200 dark:border-gray-700 z-[10001]"
+                  className="absolute right-2 md:right-4 lg:right-60 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-200 dark:border-gray-700 z-[10001]"
                   aria-label="Next project"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                 </button>
               </>
             )}
 
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 relative mx-16 md:mx-20 lg:mx-24"
+              className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-6 lg:p-8 relative mx-12 md:mx-16 lg:mx-20 xl:mx-24"
               onClick={(e) => e.stopPropagation()}
               style={{ zIndex: 10000 }}
             >

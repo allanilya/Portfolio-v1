@@ -37,30 +37,30 @@ export default function Certifications() {
   ];
 
   return (
-    <section id="certifications" className="relative z-0 py-20 px-4">
+    <section id="certifications" className="relative z-0 py-16 md:py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Certifications</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Certifications</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {certifications.map((cert, index) => (
             <a
               key={index}
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 h-full"
+              className="group flex flex-col items-center p-5 md:p-6 bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 h-full"
             >
-              <div className="w-64 h-64 flex items-center justify-center mb-4 flex-shrink-0">
+              <div className="w-48 h-48 md:w-64 md:h-64 flex items-center justify-center mb-4 flex-shrink-0">
                 <img
                   src={cert.image}
                   alt={cert.name}
                   className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
-              <p className="text-center text-sm font-medium text-gray-700 dark:text-gray-300 mt-auto">
+              <p className="text-center text-sm font-medium text-gray-300 mt-auto">
                 {cert.name}
               </p>
-              <p className="text-xs text-blue-600 dark:text-blue-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <p className="text-xs text-blue-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 View Credential →
               </p>
             </a>
