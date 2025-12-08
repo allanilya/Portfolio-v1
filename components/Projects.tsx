@@ -123,9 +123,28 @@ export default function Projects() {
           {/* Project Cards */}
           <div className="grid grid-cols-1 min-h-[413px] md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-12">
             {getVisibleProjects().map((project) => (
+              /*
+                PROJECT CARD - Height Controls
+
+                Customize the card height:
+                - max-h-[500px]: Maximum card height (current: 500px)
+                  - Increase: max-h-[600px], max-h-[700px], etc.
+                  - Decrease: max-h-[400px], max-h-[450px], etc.
+                  - Remove max-h to allow unlimited height
+
+                - h-full: Makes all cards the same height (match tallest card)
+                - flex flex-col: Enables vertical layout with flex-grow on description
+                - overflow-hidden: Hides content that exceeds card bounds
+
+                How it works:
+                - Cards grow to match the tallest card in the row
+                - If tallest card exceeds max-h, all cards cap at that height
+                - Description text uses remaining space with flex-grow
+                - Text that exceeds available space will be cut off (no ellipsis without line-clamp)
+              */
               <div
                 key={project.id}
-                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full"
+                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full min-h-[430px] max-h-[430px]"
               >
                 {/* Preview Section - Only shown if liveUrl exists */}
                 {project.liveUrl && (
@@ -162,7 +181,8 @@ export default function Projects() {
                   className="p-4 cursor-pointer flex-grow flex flex-col"
                   onClick={() => setSelectedProject(project.id)}
                 >
-                  <div className="flex items-start justify-between mb-2">
+                  {/* Title Section */}
+                  <div className="flex items-start justify-between mb-2 flex-shrink-0">
                     <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
@@ -170,25 +190,28 @@ export default function Projects() {
                       <ExternalLink className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2" />
                     )}
                   </div>
-                  <p className="text-gray-400 mb-3 text-sm leading-relaxed">
+
+                  {/*
+                    PROJECT DESCRIPTION - Text truncation with ellipsis
+
+                    This section expands to fill available space with a maximum of 6 lines.
+                    Text exceeding 6 lines will be cut off with "..." at the end.
+                    The "Click to view details" section below will always remain visible at the bottom.
+
+                    Customize the appearance:
+                    - Text size: text-base (current) | text-sm (smaller) | text-lg (larger)
+                    - line-clamp-6: Shows max 6 lines before adding "..." (change to line-clamp-4, line-clamp-8, etc.)
+                    - flex-grow: Allows text to fill available space
+                    - The full description is always shown in the expanded modal view
+
+                    Note: Tech stack is hidden on cards and only shown in the expanded modal view
+                  */}
+                  <p className="text-gray-400 mb-3 text-base leading-relaxed flex-grow overflow-hidden line-clamp-6">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {project.techStack.slice(0, 3).map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-2 py-0.5 bg-gradient-to-r from-blue-900 to-blue-800 text-blue-200 rounded-md text-xs font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 3 && (
-                      <span className="px-2 py-0.5 bg-gray-700 text-gray-400 rounded-md text-xs font-medium">
-                        +{project.techStack.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                  <div className="pt-3 border-t border-gray-700 flex items-center gap-2 text-xs text-gray-400">
+
+                  {/* Click to view details - Fixed at bottom */}
+                  <div className="pt-3 border-t border-gray-700 flex items-center gap-2 text-xs text-gray-400 flex-shrink-0 mt-auto">
                     <Github className="w-4 h-4" />
                     <span>Click to view details</span>
                   </div>
