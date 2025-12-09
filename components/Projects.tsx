@@ -25,15 +25,76 @@
 import { useState, useEffect } from 'react';
 import { Github, ExternalLink, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { projects } from '@/lib/projects';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+
+  // Tech stack color mapping - matches Skills.tsx categories
+  const getTechColor = (tech: string): string => {
+    // Skills categories from Skills.tsx (matching exactly)
+    const skillCategories = [
+      { skills: ["Python", "TypeScript", "JavaScript", "Java", "SQL", "R", "Swift", "PHP"], color: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' },
+      { skills: ["React", "Next.js", "Tailwind CSS", "Radix UI"], color: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' },
+      { skills: ["Flask", "Django", "Spring Boot", "Node.js", "REST APIs"], color: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' },
+      { skills: ["LangChain", "LangGraph", "TensorFlow", "PyTorch", "Scikit-learn", "AWS Bedrock"], color: 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200' },
+      { skills: ["AWS", "Docker", "DynamoDB", "Elastic Beanstalk", "Lambda", "API Gateway"], color: 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200' },
+      { skills: ["Pandas", "NumPy", "Plotly", "Spark", "NLTK", "Spacy", "Beautiful Soup"], color: 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200' },
+      { skills: ["MySQL", "MongoDB", "Pinecone", "FAISS", "Vector Databases"], color: 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200' },
+    ];
+
+    // Check if tech exists in Skills categories
+    for (const category of skillCategories) {
+      if (category.skills.some(skill => skill.toLowerCase() === tech.toLowerCase())) {
+        return category.color;
+      }
+    }
+
+    // Hardcoded mappings for technologies NOT in Skills.tsx
+    const extraTechMap: Record<string, string> = {
+      // AI/ML - Orange
+      'claude sonnet 4.5': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'lstm': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'gru': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'arima': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'random forest': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'logistic regression': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'knn': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'naive bayes': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'decision tree': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+      'smote': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+
+      // Cloud & DevOps - Indigo
+      'vercel': 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200',
+
+      // Data Science - Teal
+      'statsmodels': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200',
+      'yfinance': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200',
+      'jupyter notebook': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200',
+
+      // Other
+      'shiny': 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200', // R framework
+      '1blocker': 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200',
+      'css': 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+    };
+
+    // Check hardcoded extras
+    const normalized = tech.toLowerCase();
+    if (extraTechMap[normalized]) {
+      return extraTechMap[normalized];
+    }
+
+    // Default gray for anything else
+    return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200';
+  };
 
   /**
    * Advances the carousel to the next project in the main view
    */
   const nextProject = () => {
+    setSlideDirection('right');
     setCurrentIndex((prev) => (prev + 1) % projects.length);
   };
 
@@ -41,6 +102,7 @@ export default function Projects() {
    * Moves the carousel to the previous project in the main view
    */
   const prevProject = () => {
+    setSlideDirection('left');
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
   };
 
@@ -114,15 +176,49 @@ export default function Projects() {
 
   /**
    * Gets the subset of projects to display in the carousel
-   * @returns All projects if there are 3 or fewer, otherwise returns the previous, current, and next projects
+   * @returns All projects if there are 3 or fewer, otherwise returns the previous, current, and next projects with slot information
    */
   const getVisibleProjects = () => {
-    if (projects.length <= 3) return projects;
+    if (projects.length <= 3) return projects.map((p, i) => ({
+      ...p,
+      slot: i === 1 ? 'center' : i === 0 ? 'left' : 'right',
+    }));
 
     const prev = (currentIndex - 1 + projects.length) % projects.length;
     const next = (currentIndex + 1) % projects.length;
 
-    return [projects[prev], projects[currentIndex], projects[next]];
+    return [
+      { ...projects[prev], slot: 'left' },
+      { ...projects[currentIndex], slot: 'center' },
+      { ...projects[next], slot: 'right' },
+    ];
+  };
+
+  // Framer Motion animation variants
+  const SLOT = {
+    left: {
+      scale: 0.75,
+      x: -270,
+      opacity: 1,
+      zIndex: 10,
+    },
+    center: {
+      scale: 1,
+      x: 0,
+      opacity: 1,
+      zIndex: 20,
+    },
+    right: {
+      scale: 0.75,
+      x: 270,
+      opacity: 1,
+      zIndex: 10,
+    },
+  };
+
+  const exitVariants = {
+    right: { x: -220, scale: 0.6, opacity: 0 },
+    left: { x: 220, scale: 0.6, opacity: 0 },
   };
 
   return (
@@ -144,41 +240,43 @@ export default function Projects() {
       `}</style>
       <section id="projects" className="relative z-10 py-20 px-4">
         <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Projects
         </h2>
         {/* Carousel Controls */}
         <div className="relative">
-          {/* Project Cards */}
-          <div className="grid grid-cols-1 min-h-[413px] md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-12">
-            {getVisibleProjects().map((project) => (
-              /*
-                PROJECT CARD - Height Controls
-
-                Customize the card height:
-                - max-h-[500px]: Maximum card height (current: 500px)
-                  - Increase: max-h-[600px], max-h-[700px], etc.
-                  - Decrease: max-h-[400px], max-h-[450px], etc.
-                  - Remove max-h to allow unlimited height
-
-                - h-full: Makes all cards the same height (match tallest card)
-                - flex flex-col: Enables vertical layout with flex-grow on description
-                - overflow-hidden: Hides content that exceeds card bounds
-
-                How it works:
-                - Cards grow to match the tallest card in the row
-                - If tallest card exceeds max-h, all cards cap at that height
-                - Description text uses remaining space with flex-grow
-                - Text that exceeds available space will be cut off (no ellipsis without line-clamp)
-              */
-              <div
-                key={project.id}
-                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full min-h-[380px] max-h-[380px] md:min-h-[430px] md:max-h-[430px]"
-              >
+          {/* Project Cards - Carousel Focus Layout */}
+          <div className="relative flex items-center justify-center min-h-[450px] px-4">
+            <AnimatePresence mode="popLayout">
+              {getVisibleProjects().map((project) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{
+                    opacity: 0,
+                    scale: 0.6,
+                    x: slideDirection === 'right' ? 220 : -220,
+                  }}
+                  animate={SLOT[project.slot as 'left' | 'center' | 'right']}
+                  exit={exitVariants[slideDirection || 'right']}
+                  transition={{
+                    duration: 0.45,
+                    ease: [0.22, 0.61, 0.36, 1],
+                  }}
+                  onClick={() => setSelectedProject(project.id)}
+                  style={{ position: 'absolute' }}
+                  className={`
+                    group bg-gray-800 rounded-xl shadow-lg border overflow-hidden flex flex-col cursor-pointer
+                    w-full max-w-[350px] min-h-[500px] max-h-[500px]
+                    ${project.slot === 'center'
+                      ? 'border-blue-600 hover:shadow-2xl'
+                      : 'border-gray-700 hover:border-blue-400'}
+                  `}
+                >
                 {/* Preview Section - Only shown if liveUrl exists */}
                 {project.liveUrl && (
                   <div
-                    className="relative w-full h-32 md:h-40 bg-gray-900 overflow-hidden cursor-pointer flex-shrink-0"
+                    className="relative w-full h-32 md:h-50 bg-gray-900 overflow-hidden cursor-pointer flex-shrink-0"
                     onClick={(e) => {
                       e.stopPropagation();
                       window.open(project.liveUrl, '_blank');
@@ -212,7 +310,7 @@ export default function Projects() {
                 >
                   {/* Title Section */}
                   <div className="flex items-start justify-between mb-2 flex-shrink-0">
-                    <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
                     {project.liveUrl && (
@@ -235,7 +333,11 @@ export default function Projects() {
 
                     Note: Tech stack is hidden on cards and only shown in the expanded modal view
                   */}
-                  <p className="text-gray-400 mb-3 text-base leading-relaxed flex-grow overflow-hidden line-clamp-6">
+                  <p className={`text-gray-400 mb-0.8 text-lg leading-relaxed overflow-hidden ${
+                    project.liveUrl
+                      ? 'line-clamp-7'
+                      : 'flex-grow'
+                  }`}>
                     {project.description}
                   </p>
 
@@ -245,13 +347,14 @@ export default function Projects() {
                     <span>Click to view details</span>
                   </div>
                 </div>
-              </div>
-            ))}
+              </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
 
           {/* Navigation Controls - Dots with Left/Right Buttons */}
           {projects.length > 3 && (
-            <div className="flex items-center justify-center gap-6 mt-8">
+            <div className="flex items-center justify-center gap-6 mt-16">
               {/* Previous Button */}
               <button
                 onClick={prevProject}
@@ -355,7 +458,7 @@ export default function Projects() {
                         .techStack.map((tech, index) => (
                           <span
                             key={index}
-                            className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
+                            className={`px-3 py-1 ${getTechColor(tech)} rounded-full text-sm font-medium transition-transform hover:scale-105`}
                           >
                             {tech}
                           </span>
