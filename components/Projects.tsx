@@ -142,7 +142,7 @@ export default function Projects() {
           animation: modalScaleIn 0.3s ease-out;
         }
       `}</style>
-      <section id="projects" className="relative z-20 py-20 px-4">
+      <section id="projects" className="relative z-10 py-20 px-4">
         <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Projects
@@ -173,12 +173,12 @@ export default function Projects() {
               */
               <div
                 key={project.id}
-                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full min-h-[430px] max-h-[430px]"
+                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full min-h-[380px] max-h-[380px] md:min-h-[430px] md:max-h-[430px]"
               >
                 {/* Preview Section - Only shown if liveUrl exists */}
                 {project.liveUrl && (
                   <div
-                    className="relative w-full h-40 bg-gray-900 overflow-hidden cursor-pointer flex-shrink-0"
+                    className="relative w-full h-32 md:h-40 bg-gray-900 overflow-hidden cursor-pointer flex-shrink-0"
                     onClick={(e) => {
                       e.stopPropagation();
                       window.open(project.liveUrl, '_blank');

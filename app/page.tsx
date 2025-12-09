@@ -5,6 +5,7 @@ import Projects from '@/components/Projects';
 import Certifications from '@/components/Certifications';
 import MatrixBackground from '@/components/MatrixBackground';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Skills />
       <Projects />
       <Certifications />
+      <Footer />
     </div>
   );
 }
