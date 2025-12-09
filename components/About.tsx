@@ -27,15 +27,14 @@ export default function About() {
         <div className="bg-gray-800 rounded-lg p-6 md:p-8 shadow-lg">
           {/* Paragraph 1 - Edit your background here */}
           <p className="text-base md:text-lg text-gray-300 leading-relaxed mb-4">
-            I'm a Graduate Student pursuing an MS in Data Science and BS in Computer Science at St. John's University,
-            graduating in May 2026 and May 2025 respectively. Currently working as a Graduate Research Assistant,
+            I'm a Graduate Student pursuing an M.S. in Data Science through an accelerated 4+1 program, after completing my B.S. in Copmputer Science. Currently working as a Graduate Research Assistant,
             I specialize in building AI-powered applications and scalable cloud infrastructure.
           </p>
 
           {/* Paragraph 2 - Edit your expertise here */}
           <p className="text-base md:text-lg text-gray-300 leading-relaxed mb-4">
             My expertise spans full-stack development, machine learning, and AWS cloud services. I've led the development
-            of Codify AI, an AI-powered programming tutor, and won multiple hackathons for innovative AI solutions.
+            of Codify AI, an AI-powered programming tutor, and won a hackathon for innovative AI solutions.
           </p>
 
           {/* Paragraph 3 - Edit personal interests here */}
