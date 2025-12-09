@@ -73,6 +73,19 @@ export default function Projects() {
     setSelectedProject(projects[prevIdx].id);
   };
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (selectedProject !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject]);
+
   // Keyboard navigation
   useEffect(() => {
     if (selectedProject === null) return;
@@ -113,8 +126,24 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="relative z-10 py-20 px-4">
-      <div className="max-w-7xl mx-auto">
+    <>
+      <style jsx>{`
+        @keyframes modalScaleIn {
+          from {
+            transform: scale(0.95);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        .modal-content-animate {
+          animation: modalScaleIn 0.3s ease-out;
+        }
+      `}</style>
+      <section id="projects" className="relative z-10 py-20 px-4">
+        <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Projects
         </h2>
@@ -144,12 +173,12 @@ export default function Projects() {
               */
               <div
                 key={project.id}
-                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full min-h-[430px] max-h-[430px]"
+                className="group bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700 hover:border-blue-600 overflow-hidden flex flex-col h-full min-h-[380px] max-h-[380px] md:min-h-[430px] md:max-h-[430px]"
               >
                 {/* Preview Section - Only shown if liveUrl exists */}
                 {project.liveUrl && (
                   <div
-                    className="relative w-full h-40 bg-gray-900 overflow-hidden cursor-pointer flex-shrink-0"
+                    className="relative w-full h-32 md:h-40 bg-gray-900 overflow-hidden cursor-pointer flex-shrink-0"
                     onClick={(e) => {
                       e.stopPropagation();
                       window.open(project.liveUrl, '_blank');
@@ -259,23 +288,25 @@ export default function Projects() {
             </div>
           )}
         </div>
+      </div>
+    </section>
 
-        {/* Project Modal */}
-        {selectedProject !== null && (
-          <div
-            className="fixed inset-0 flex items-center justify-center z-[9999] p-4 overflow-y-auto"
-            onClick={() => setSelectedProject(null)}
-            style={{ zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-          >
+    {/* Project Modal - Outside section to avoid z-index stacking context issues */}
+    {selectedProject !== null && (
+      <div
+        className="fixed inset-0 flex items-center justify-center z-[9999] p-4 overflow-y-auto backdrop-blur-sm"
+        onClick={() => setSelectedProject(null)}
+        style={{ zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
+      >
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-6 lg:p-6 relative"
+              className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-6 lg:p-6 relative modal-content-animate"
               onClick={(e) => e.stopPropagation()}
               style={{ zIndex: 10000 }}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors z-10"
+                className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors z-50"
                 aria-label="Close modal"
               >
                 <X className="w-6 h-6" />
@@ -412,7 +443,6 @@ export default function Projects() {
             </div>
           </div>
         )}
-      </div>
-    </section>
+    </>
   );
 }

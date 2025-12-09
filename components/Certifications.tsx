@@ -50,7 +50,7 @@ export default function Certifications() {
               rel="noopener noreferrer"
               className="group flex flex-col items-center p-5 md:p-6 bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 h-full"
             >
-              <div className="w-48 h-48 md:w-64 md:h-64 flex items-center justify-center mb-4 flex-shrink-0">
+              <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 flex items-center justify-center mb-4 flex-shrink-0">
                 <img
                   src={cert.image}
                   alt={cert.name}
