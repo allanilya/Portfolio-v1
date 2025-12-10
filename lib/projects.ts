@@ -36,14 +36,13 @@ export const projects: Project[] = [
     techStack: ["CSS", "1Blocker"],
     githubUrl: "https://github.com/allanilya/NoScroll"
   },
-  
     {
     id: 5,
-    title: "Personal Portfolio Website",
-    description: "A modern, responsive portfolio website built with Next.js and Tailwind CSS featuring an interactive Matrix-style background, project showcases, and smooth navigation. Optimized for performance and SEO with server-side rendering and static generation.",
-    techStack: ["Next.js", "Tailwind CSS", "React", "JavaScript", "Vercel"],
-    githubUrl: "https://github.com/allanilya/Portfolio-v1",
-    liveUrl: "https://allanilyasov.com"
+    title: "Gapminder Global Trends",
+    description: "An interactive web application that visualizes global trends in life expectancy and economic development using the Gapminder dataset. Features dynamic charts and maps built with R Shiny that allow users to explore historical patterns and regional differences across decades.",
+    techStack: ["R", "Shiny"],
+    githubUrl: "https://github.com/allanilya/Gapminder-Global-Trends",
+    liveUrl: 'https://allani.shinyapps.io/gapminder/'
   },
   {
     id: 6,
@@ -59,13 +58,13 @@ export const projects: Project[] = [
     techStack: ["Python", "Scikit-learn", "SMOTE", "Random Forest", "Logistic Regression", "KNN", "Pandas"],
     githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
   },
-  {
+    {
     id: 8,
-    title: "Gapminder Global Trends",
-    description: "An interactive web application that visualizes global trends in life expectancy and economic development using the Gapminder dataset. Features dynamic charts and maps built with R Shiny that allow users to explore historical patterns and regional differences across decades.",
-    techStack: ["R", "Shiny"],
-    githubUrl: "https://github.com/allanilya/Gapminder-Global-Trends",
-    liveUrl: 'https://allani.shinyapps.io/gapminder/'
+    title: "Personal Portfolio Website",
+    description: "A modern, responsive portfolio website built with Next.js and Tailwind CSS featuring an interactive Matrix-style background, project showcases, and smooth navigation. Optimized for performance and SEO with server-side rendering and static generation.",
+    techStack: ["Next.js", "Tailwind CSS", "React", "JavaScript", "Vercel"],
+    githubUrl: "https://github.com/allanilya/Portfolio-v1",
+    liveUrl: "https://allanilyasov.com"
   }
   // Add your projects here following the same format
   // Example:
