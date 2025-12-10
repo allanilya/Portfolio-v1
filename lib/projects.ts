@@ -36,12 +36,14 @@ export const projects: Project[] = [
     techStack: ["CSS", "1Blocker"],
     githubUrl: "https://github.com/allanilya/NoScroll"
   },
-  {
+  
+    {
     id: 5,
-    title: "Diabetes Risk Prediction",
-    description: "A machine learning study comparing lifestyle versus demographic factors as predictors of diabetes risk using 230K+ patient records. Analyzes which factors—such as diet, exercise, and family history—are most significant in predicting diabetes, using ensemble methods and cross-validation for robust predictions.",
-    techStack: ["Python", "Scikit-learn", "SMOTE", "Random Forest", "Logistic Regression", "KNN", "Pandas"],
-    githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
+    title: "Personal Portfolio Website",
+    description: "A modern, responsive portfolio website built with Next.js and Tailwind CSS featuring an interactive Matrix-style background, project showcases, and smooth navigation. Optimized for performance and SEO with server-side rendering and static generation.",
+    techStack: ["Next.js", "Tailwind CSS", "React", "JavaScript", "Vercel"],
+    githubUrl: "https://github.com/allanilya/Portfolio-v1",
+    liveUrl: "https://allanilyasov.com"
   },
   {
     id: 6,
@@ -50,20 +52,20 @@ export const projects: Project[] = [
     techStack: ["Python", "Scikit-learn", "Naive Bayes", "Random Forest", "Logistic Regression", "Decision Tree", "Pandas", "Jupyter Notebook"],
     githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
   },
-  {
+    {
     id: 7,
-    title: "Personal Portfolio Website",
-    description: "A modern, responsive portfolio website built with Next.js and Tailwind CSS featuring an interactive Matrix-style background, project showcases, and smooth navigation. Optimized for performance and SEO with server-side rendering and static generation.",
-    techStack: ["Next.js", "Tailwind CSS", "React", "JavaScript", "Vercel"],
-    githubUrl: "https://github.com/allanilya/Portfolio-v1",
-    liveUrl: "https://allanilyasov.com"
+    title: "Diabetes Risk Prediction",
+    description: "A machine learning study comparing lifestyle versus demographic factors as predictors of diabetes risk using 230K+ patient records. Analyzes which factors—such as diet, exercise, and family history—are most significant in predicting diabetes, using ensemble methods and cross-validation for robust predictions.",
+    techStack: ["Python", "Scikit-learn", "SMOTE", "Random Forest", "Logistic Regression", "KNN", "Pandas"],
+    githubUrl: "https://github.com/allanilya/Diabetes-Prediction"
   },
   {
     id: 8,
     title: "Gapminder Global Trends",
-    description: "An interactive web application that visualizes global trends in life expectancy, population growth, and economic development using the Gapminder dataset. Features dynamic charts and maps built with R Shiny that allow users to explore historical patterns and regional differences across decades.",
+    description: "An interactive web application that visualizes global trends in life expectancy and economic development using the Gapminder dataset. Features dynamic charts and maps built with R Shiny that allow users to explore historical patterns and regional differences across decades.",
     techStack: ["R", "Shiny"],
-    githubUrl: "https://github.com/allanilya/Gapminder-Global-Trends"
+    githubUrl: "https://github.com/allanilya/Gapminder-Global-Trends",
+    liveUrl: 'https://allani.shinyapps.io/gapminder/'
   }
   // Add your projects here following the same format
   // Example:
