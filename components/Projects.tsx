@@ -32,23 +32,26 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [xOffset, setXOffset] = useState(270); // Default to desktop value
+  const [leftRightScale, setLeftRightScale] = useState(0.75); // Default to desktop value
 
-  // Update x offset based on screen size
+  // Update x offset and scale based on screen size
   useEffect(() => {
-    const updateXOffset = () => {
+    const updateResponsiveValues = () => {
       if (window.innerWidth < 768) {
-        setXOffset(140); // Mobile
+        setXOffset(160); // Mobile
+        setLeftRightScale(0.6); // Mobile - smaller scale
       } else {
         setXOffset(270); // Desktop
+        setLeftRightScale(0.75); // Desktop - larger scale
       }
     };
 
     // Set initial value
-    updateXOffset();
+    updateResponsiveValues();
 
     // Update on resize
-    window.addEventListener('resize', updateXOffset);
-    return () => window.removeEventListener('resize', updateXOffset);
+    window.addEventListener('resize', updateResponsiveValues);
+    return () => window.removeEventListener('resize', updateResponsiveValues);
   }, []);
 
   // Tech stack color mapping - matches Skills.tsx categories
@@ -216,7 +219,7 @@ export default function Projects() {
   // Framer Motion animation variants (responsive based on screen size)
   const SLOT = {
     left: {
-      scale: 0.75,
+      scale: leftRightScale,
       x: -xOffset,
       opacity: 1,
       zIndex: 10,
@@ -228,7 +231,7 @@ export default function Projects() {
       zIndex: 20,
     },
     right: {
-      scale: 0.75,
+      scale: leftRightScale,
       x: xOffset,
       opacity: 1,
       zIndex: 10,
@@ -330,7 +333,7 @@ export default function Projects() {
                 >
                   {/* Title Section */}
                   <div className="flex items-start justify-between mb-2 flex-shrink-0">
-                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
                     {project.liveUrl && (
@@ -353,12 +356,15 @@ export default function Projects() {
 
                     Note: Tech stack is hidden on cards and only shown in the expanded modal view
                   */}
-                  <p className={`text-gray-400 mb-0.8 text-base md:text-lg leading-relaxed overflow-hidden ${
+                  <p className={`text-gray-400 mb-0.8 text-sm md:text-lg leading-relaxed overflow-hidden ${
+                      
                     project.liveUrl
                       ? 'line-clamp-7'
-                      : 'flex-grow'
+                      : 'flex-grow: line-clamp-14'
+                      
                   }`}>
                     {project.description}
+                      
                   </p>
 
                   {/* Click to view details - Fixed at bottom */}
@@ -437,17 +443,17 @@ export default function Projects() {
 
               {projects.find((p) => p.id === selectedProject) && (
                 <>
-                  <h3 className="text-3xl font-bold mb-4">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4">
                     {projects.find((p) => p.id === selectedProject)!.title}
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300 mb-6 text-lg leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
                     {projects.find((p) => p.id === selectedProject)!.description}
                   </p>
 
                   {/* Live Preview */}
                   {projects.find((p) => p.id === selectedProject)!.liveUrl && (
                     <div className="mb-6">
-                      <h4 className="text-xl font-semibold mb-3">Live Preview</h4>
+                      <h4 className="text-lg md:text-xl font-semibold mb-3">Live Preview</h4>
                       <div className="relative w-full rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-lg">
                         <div className="bg-gray-100 dark:bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-200 dark:border-gray-700">
                           <div className="flex gap-2">
@@ -471,7 +477,7 @@ export default function Projects() {
                   )}
 
                   <div className="mb-6">
-                    <h4 className="text-xl font-semibold mb-3">Tech Stack</h4>
+                    <h4 className="text-lg md:text-xl font-semibold mb-3">Tech Stack</h4>
                     <div className="flex flex-wrap gap-2">
                       {projects
                         .find((p) => p.id === selectedProject)!
