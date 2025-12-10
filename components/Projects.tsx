@@ -39,7 +39,7 @@ export default function Projects() {
     const updateResponsiveValues = () => {
       if (window.innerWidth < 768) {
         setXOffset(150); // Mobile
-        setLeftRightScale(0.6); // Mobile - smaller scale
+        setLeftRightScale(0.5); // Mobile - smaller scale
       } else {
         setXOffset(270); // Desktop
         setLeftRightScale(0.75); // Desktop - larger scale
