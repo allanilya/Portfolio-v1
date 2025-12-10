@@ -31,6 +31,25 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+  const [xOffset, setXOffset] = useState(270); // Default to desktop value
+
+  // Update x offset based on screen size
+  useEffect(() => {
+    const updateXOffset = () => {
+      if (window.innerWidth < 768) {
+        setXOffset(200); // Mobile
+      } else {
+        setXOffset(270); // Desktop
+      }
+    };
+
+    // Set initial value
+    updateXOffset();
+
+    // Update on resize
+    window.addEventListener('resize', updateXOffset);
+    return () => window.removeEventListener('resize', updateXOffset);
+  }, []);
 
   // Tech stack color mapping - matches Skills.tsx categories
   const getTechColor = (tech: string): string => {
@@ -194,11 +213,11 @@ export default function Projects() {
     ];
   };
 
-  // Framer Motion animation variants
+  // Framer Motion animation variants (responsive based on screen size)
   const SLOT = {
     left: {
       scale: 0.75,
-      x: -270,
+      x: -xOffset,
       opacity: 1,
       zIndex: 10,
     },
@@ -210,7 +229,7 @@ export default function Projects() {
     },
     right: {
       scale: 0.75,
-      x: 270,
+      x: xOffset,
       opacity: 1,
       zIndex: 10,
     },
