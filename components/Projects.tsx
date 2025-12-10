@@ -246,7 +246,7 @@ export default function Projects() {
         {/* Carousel Controls */}
         <div className="relative">
           {/* Project Cards - Carousel Focus Layout */}
-          <div className="relative flex items-center justify-center min-h-[450px] px-4">
+          <div className="relative flex items-center justify-center min-h-[420px] sm:min-h-[460px] md:min-h-[500px] px-4">
             <AnimatePresence mode="popLayout">
               {getVisibleProjects().map((project) => (
                 <motion.div
@@ -267,7 +267,8 @@ export default function Projects() {
                   style={{ position: 'absolute' }}
                   className={`
                     group bg-gray-800 rounded-xl shadow-lg border overflow-hidden flex flex-col cursor-pointer
-                    w-full max-w-[350px] min-h-[500px] max-h-[500px]
+                    w-full max-w-[280px] sm:max-w-[320px] md:max-w-[350px]
+                    min-h-[420px] max-h-[420px] sm:min-h-[460px] sm:max-h-[460px] md:min-h-[500px] md:max-h-[500px]
                     ${project.slot === 'center'
                       ? 'border-blue-600 hover:shadow-2xl'
                       : 'border-gray-700 hover:border-blue-400'}
