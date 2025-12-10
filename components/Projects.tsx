@@ -37,7 +37,7 @@ export default function Projects() {
   useEffect(() => {
     const updateXOffset = () => {
       if (window.innerWidth < 768) {
-        setXOffset(200); // Mobile
+        setXOffset(180); // Mobile
       } else {
         setXOffset(270); // Desktop
       }
