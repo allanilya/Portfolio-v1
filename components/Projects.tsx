@@ -38,7 +38,7 @@ export default function Projects() {
   useEffect(() => {
     const updateResponsiveValues = () => {
       if (window.innerWidth < 768) {
-        setXOffset(140); // Mobile
+        setXOffset(130); // Mobile
         setLeftRightScale(0.5); // Mobile - smaller scale
       } else {
         setXOffset(270); // Desktop
