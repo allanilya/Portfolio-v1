@@ -37,47 +37,35 @@ export default function Hero() {
             - w-72 h-72 = extra-large (288px)
             - w-80 h-80 = huge (320px)
           */}
-          <div className="relative w-72 h-72  overflow-hidden rounded-full">
+          <div className="relative w-72 h-72 overflow-hidden rounded-full">
             {/*
               ADJUSTING IMAGE POSITION WITHIN CIRCLE:
 
-              The objectPosition value controls where the image is positioned.
-              Format: 'horizontal% vertical%'
+              Adjust translateX and translateY to move the image:
 
-              To move image LEFT: Use a LOWER first number (horizontal)
-              - '0% 50%' = far left, centered vertically
-              - '20% 50%' = slightly left
-              - '50% 50%' = centered (default)
-              - '80% 50%' = slightly right
-              - '100% 50%' = far right
+              translateX (moves left/right):
+              - Negative values = move image LEFT (show right side of photo)
+              - Positive values = move image RIGHT (show left side of photo)
+              - Examples: -50px, -30px, 0px, 30px, 50px
 
-              To move image UP/DOWN: Change second number (vertical)
-              - '50% 0%' = centered horizontally, at top
-              - '50% 30%' = centered horizontally, slightly up
-              - '50% 50%' = perfectly centered
-              - '50% 70%' = centered horizontally, slightly down
-              - '50% 100%' = centered horizontally, at bottom
+              translateY (moves up/down):
+              - Negative values = move image UP (show bottom of photo)
+              - Positive values = move image DOWN (show top of photo)
+              - Examples: -50px, -30px, 0px, 30px, 50px
 
-              Your current value '10% 10%' means:
-              - Image is shifted LEFT (10% from left edge)
-              - Image is shifted UP (10% from top edge)
-
-              To move MORE to the left, use a SMALLER first number like '0% 10%'
-
-              ZOOM:
-              - scale(1.0) = normal size
-              - scale(1.2) = zoom in 20%
-              - scale(1.5) = zoom in 50%
-              - scale(0.8) = zoom out 20%
+              scale (zoom):
+              - 1.0 = normal size
+              - 1.2 = zoom in 20%
+              - 1.5 = zoom in 50%
+              - 0.8 = zoom out 20%
             */}
             <img
               src="/profilepic.jpeg"
               alt="Allan Ilyasov"
-              className="h-full object-cover"
+              className="absolute object-cover"
               style={{
-                width: '100%',  // Make image wider than container so horizontal positioning works
-                transform: 'scale(1.1)',
-                objectPosition: '0% 0%'  // NOW both values work! First = left/right, Second = up/down
+                width: '100%',
+  
               }}
             />
           </div>
