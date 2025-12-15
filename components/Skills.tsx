@@ -20,7 +20,7 @@
 
 import { useState, useEffect } from 'react';
 import { skillCategories } from '@/lib/skillsData';
-import { X, ArrowLeft } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export default function Skills() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -143,7 +143,7 @@ export default function Skills() {
           style={{ zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
         >
           <div
-            className="bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative text-gray-100"
+            className="bg-gray-800 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative text-gray-100"
             onClick={(e) => e.stopPropagation()}
             style={{ zIndex: 10000 }}
           >
@@ -156,43 +156,64 @@ export default function Skills() {
               <X className="w-6 h-6" />
             </button>
 
-            {/* Back to Category Button */}
-            <button
-              onClick={() => {
-                const categoryIndex = selectedSkill.categoryIndex;
-                setSelectedSkill(null);
-                setSelectedCategory(categoryIndex);
-              }}
-              className="flex items-center gap-2 text-gray-400 hover:text-gray-200 transition-colors mb-6"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back to {skillCategories[selectedSkill.categoryIndex].title}</span>
-            </button>
-
-            {/* Skill Badge */}
-            <div className="flex justify-center mb-6">
-              <span
-                className={`px-6 py-3 ${skillCategories[selectedSkill.categoryIndex].colors.badge} rounded-xl text-2xl md:text-3xl font-bold shadow-lg`}
-              >
-                {selectedSkill.skillName}
-              </span>
-            </div>
-
-            {/* Skill Description */}
-            <div className="bg-gray-750 rounded-lg p-6 border border-gray-700">
-              <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-                {skillCategories[selectedSkill.categoryIndex].skills.find(
-                  skill => skill.name === selectedSkill.skillName
-                )?.description}
+            {/* Category Header */}
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-3">
+                <div className={`w-1 h-10 bg-gradient-to-b ${skillCategories[selectedSkill.categoryIndex].colors.bg} rounded-full`}></div>
+                <h3 className={`text-2xl md:text-3xl font-bold ${skillCategories[selectedSkill.categoryIndex].colors.text}`}>
+                  {skillCategories[selectedSkill.categoryIndex].title}
+                </h3>
+              </div>
+              <p className="text-gray-300 text-lg md:text-xl">
+                {skillCategories[selectedSkill.categoryIndex].description}
               </p>
             </div>
 
-            {/* Category Info */}
-            <div className="mt-6 pt-4 border-t border-gray-700">
-              <p className="text-sm text-gray-400 text-center">
-                Part of <span className={skillCategories[selectedSkill.categoryIndex].colors.text}>{skillCategories[selectedSkill.categoryIndex].title}</span> category
-              </p>
+            {/* All Skills - Horizontal Layout */}
+            <div className="mb-6">
+              <h4 className="text-base font-semibold mb-3 text-gray-200">Select a skill:</h4>
+              <div className="flex flex-wrap gap-3">
+                {skillCategories[selectedSkill.categoryIndex].skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    onClick={() => {
+                      // Toggle: if clicking the same skill, hide description by setting skillName to empty
+                      if (skill.name === selectedSkill.skillName) {
+                        setSelectedSkill({ categoryIndex: selectedSkill.categoryIndex, skillName: '' });
+                      } else {
+                        setSelectedSkill({ categoryIndex: selectedSkill.categoryIndex, skillName: skill.name });
+                      }
+                    }}
+                    className={`px-4 py-2 ${skillCategories[selectedSkill.categoryIndex].colors.badge} rounded-lg text-sm md:text-base font-medium transition-all hover:scale-110 cursor-pointer shadow-md hover:shadow-lg ${
+                      skill.name === selectedSkill.skillName ? 'ring-2 ring-blue-400 scale-105' : ''
+                    }`}
+                  >
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
             </div>
+
+            {/* Selected Skill Details - Only show if a skill is selected */}
+            {selectedSkill.skillName && (
+              <div>
+                {/* Skill Title */}
+                <div className="flex justify-center mb-4">
+                  <h4 className={`text-2xl md:text-3xl font-bold ${skillCategories[selectedSkill.categoryIndex].colors.text}`}>
+                    {selectedSkill.skillName}
+                  </h4>
+                </div>
+
+                {/* Skill Description */}
+                <div className="text-center">
+                  <p className="text-gray-300 text-lg md:text-lg leading-relaxed">
+                    {skillCategories[selectedSkill.categoryIndex].skills.find(
+                      skill => skill.name === selectedSkill.skillName
+                    )?.description}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
