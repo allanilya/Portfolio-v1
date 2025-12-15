@@ -27,16 +27,16 @@ export interface SkillCategory {
 export const skillCategories: SkillCategory[] = [
   {
     title: "Languages",
-    description: "Core programming languages for full-stack development, data science, and AI/ML applications",
+    description: "Core programming languages for full-stack development, data science, and AI/ML applications.",
     skills: [
-      { name: "Python", description: "Primary language for AI/ML, data science, backend APIs, and automation scripting" },
-      { name: "TypeScript", description: "Type-safe JavaScript for building robust, scalable frontend and backend applications" },
-      { name: "JavaScript", description: "Dynamic language for web development, Node.js backends, and interactive UIs" },
-      { name: "Java", description: "Enterprise-grade language for backend systems and Spring Boot applications" },
-      { name: "SQL", description: "Database query language for relational database management and data analysis" },
-      { name: "R", description: "Statistical computing language for data analysis, visualization, and machine learning" },
-      { name: "Swift", description: "Apple's language for iOS, macOS, and native app development" },
-      { name: "PHP", description: "Server-side scripting language for web development and content management systems" }
+      { name: "Python", description: "Primary language for AI/ML, data science, backend APIs, and automation scripting." },
+      { name: "TypeScript", description: "Type-safe JavaScript for building robust, scalable frontend and backend applications." },
+      { name: "JavaScript", description: "Dynamic language for web development, Node.js backends, and interactive UIs." },
+      { name: "Java", description: "Enterprise-grade language for backend systems and Spring Boot applications." },
+      { name: "SQL", description: "Database query language for relational database management and data analysis." },
+      { name: "R", description: "Statistical computing language for data analysis, visualization, and machine learning." },
+      { name: "Swift", description: "Apple's language for iOS, macOS, and native app development." },
+      { name: "PHP", description: "Server-side scripting language for web development and content management systems." }
     ],
     colors: {
       bg: 'from-purple-500 to-pink-500',
@@ -46,12 +46,12 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Frontend",
-    description: "Modern frontend frameworks and libraries for building responsive, interactive web applications",
+    description: "Modern frontend frameworks and libraries for building responsive, interactive web applications.",
     skills: [
-      { name: "React", description: "Component-based JavaScript library for building dynamic user interfaces and SPAs" },
-      { name: "Next.js", description: "React framework with server-side rendering, routing, and optimized performance" },
-      { name: "Tailwind CSS", description: "Utility-first CSS framework for rapid, responsive UI development" },
-      { name: "Radix UI", description: "Unstyled, accessible UI component library for building design systems" }
+      { name: "React", description: "Component-based JavaScript library for building dynamic user interfaces and SPAs." },
+      { name: "Next.js", description: "React framework with server-side rendering, routing, and optimized performance." },
+      { name: "Tailwind CSS", description: "Utility-first CSS framework for rapid, responsive UI development." },
+      { name: "Radix UI", description: "Unstyled, accessible UI component library for building design systems." }
     ],
     colors: {
       bg: 'from-blue-500 to-cyan-500',
@@ -61,13 +61,13 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Backend",
-    description: "Server-side frameworks and technologies for building scalable APIs and web services",
+    description: "Server-side frameworks and technologies for building scalable APIs and web services.",
     skills: [
-      { name: "Flask", description: "Lightweight Python web framework for building RESTful APIs and microservices" },
-      { name: "Django", description: "Full-featured Python framework for rapid development of secure web applications" },
-      { name: "Spring Boot", description: "Java framework for building production-grade enterprise applications and APIs" },
-      { name: "Node.js", description: "JavaScript runtime for building fast, scalable server-side applications" },
-      { name: "REST APIs", description: "Architectural style for designing networked applications with HTTP methods" }
+      { name: "Flask", description: "Lightweight Python web framework for building RESTful APIs and microservices." },
+      { name: "Django", description: "Full-featured Python framework for rapid development of secure web applications." },
+      { name: "Spring Boot", description: "Java framework for building production-grade enterprise applications and APIs." },
+      { name: "Node.js", description: "JavaScript runtime for building fast, scalable server-side applications." },
+      { name: "REST APIs", description: "Architectural style for designing networked applications with HTTP methods." }
     ],
     colors: {
       bg: 'from-green-500 to-emerald-500',
@@ -77,14 +77,14 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "AI/ML",
-    description: "Machine learning frameworks and tools for building intelligent systems and AI applications",
+    description: "Machine learning frameworks and tools for building intelligent systems and AI applications.",
     skills: [
-      { name: "LangChain", description: "Framework for developing LLM-powered applications with chains and agents" },
-      { name: "LangGraph", description: "Library for building stateful, multi-actor LLM applications with graph workflows" },
-      { name: "TensorFlow", description: "End-to-end machine learning platform for training and deploying ML models" },
-      { name: "PyTorch", description: "Deep learning framework with dynamic computation graphs for research and production" },
-      { name: "Scikit-learn", description: "Machine learning library for classification, regression, and clustering algorithms" },
-      { name: "AWS Bedrock", description: "Fully managed service for building and scaling generative AI applications" }
+      { name: "LangChain", description: "Framework for developing LLM-powered applications with chains and agents." },
+      { name: "LangGraph", description: "Library for building stateful, multi-actor LLM applications with graph workflows." },
+      { name: "TensorFlow", description: "End-to-end machine learning platform for training and deploying ML models." },
+      { name: "PyTorch", description: "Deep learning framework with dynamic computation graphs for research and production." },
+      { name: "Scikit-learn", description: "Machine learning library for classification, regression, and clustering algorithms." },
+      { name: "AWS Bedrock", description: "Fully managed service for building and scaling generative AI applications." }
     ],
     colors: {
       bg: 'from-orange-500 to-red-500',
@@ -94,14 +94,14 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Cloud & DevOps",
-    description: "Cloud infrastructure and deployment tools for scalable, reliable application hosting",
+    description: "Cloud infrastructure and deployment tools for scalable, reliable application hosting.",
     skills: [
-      { name: "AWS", description: "Cloud computing platform for hosting, storage, databases, and serverless functions" },
-      { name: "Docker", description: "Containerization platform for packaging applications with their dependencies" },
-      { name: "DynamoDB", description: "NoSQL database service for high-performance, scalable applications" },
-      { name: "Elastic Beanstalk", description: "PaaS for deploying and managing applications without infrastructure management" },
-      { name: "Lambda", description: "Serverless compute service for running code without managing servers" },
-      { name: "API Gateway", description: "Service for creating, publishing, and managing secure APIs at scale" }
+      { name: "AWS", description: "Cloud computing platform for hosting, storage, databases, and serverless functions." },
+      { name: "Docker", description: "Containerization platform for packaging applications with their dependencies." },
+      { name: "DynamoDB", description: "NoSQL database service for high-performance, scalable applications." },
+      { name: "Elastic Beanstalk", description: "PaaS for deploying and managing applications without infrastructure management." },
+      { name: "Lambda", description: "Serverless compute service for running code without managing servers." },
+      { name: "API Gateway", description: "Service for creating, publishing, and managing secure APIs at scale." }
     ],
     colors: {
       bg: 'from-indigo-500 to-purple-500',
@@ -111,15 +111,15 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Data Science",
-    description: "Data analysis, manipulation, and visualization libraries for extracting insights from data",
+    description: "Data analysis, manipulation, and visualization libraries for extracting insights from data.",
     skills: [
-      { name: "Pandas", description: "Data manipulation library for analyzing structured data with DataFrames" },
-      { name: "NumPy", description: "Numerical computing library for array operations and mathematical functions" },
-      { name: "Plotly", description: "Interactive visualization library for creating charts, dashboards, and graphs" },
-      { name: "Spark", description: "Distributed computing framework for big data processing and analytics" },
-      { name: "NLTK", description: "Natural Language Toolkit for text processing, tokenization, and NLP tasks" },
-      { name: "Spacy", description: "Industrial-strength NLP library for advanced text processing and entity recognition" },
-      { name: "Beautiful Soup", description: "Web scraping library for parsing HTML and extracting data from web pages" }
+      { name: "Pandas", description: "Data manipulation library for analyzing structured data with DataFrames." },
+      { name: "NumPy", description: "Numerical computing library for array operations and mathematical functions." },
+      { name: "Plotly", description: "Interactive visualization library for creating charts, dashboards, and graphs." },
+      { name: "Spark", description: "Distributed computing framework for big data processing and analytics." },
+      { name: "NLTK", description: "Natural Language Toolkit for text processing, tokenization, and NLP tasks." },
+      { name: "Spacy", description: "Industrial-strength NLP library for advanced text processing and entity recognition." },
+      { name: "Beautiful Soup", description: "Web scraping library for parsing HTML and extracting data from web pages." }
     ],
     colors: {
       bg: 'from-teal-500 to-cyan-500',
@@ -129,13 +129,13 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Databases",
-    description: "Database systems for storing, retrieving, and managing structured and unstructured data",
+    description: "Database systems for storing, retrieving, and managing structured and unstructured data.",
     skills: [
-      { name: "MySQL", description: "Popular relational database for web applications with ACID compliance" },
-      { name: "MongoDB", description: "NoSQL document database for flexible, scalable data storage" },
-      { name: "Pinecone", description: "Vector database for similarity search and ML embedding storage" },
-      { name: "FAISS", description: "Library for efficient similarity search of dense vectors and embeddings" },
-      { name: "Vector Databases", description: "Specialized databases for storing and querying high-dimensional vectors for AI" }
+      { name: "MySQL", description: "Popular relational database for web applications with ACID compliance." },
+      { name: "MongoDB", description: "NoSQL document database for flexible, scalable data storage." },
+      { name: "Pinecone", description: "Vector database for similarity search and ML embedding storage." },
+      { name: "FAISS", description: "Library for efficient similarity search of dense vectors and embeddings." },
+      { name: "Vector Databases", description: "Specialized databases for storing and querying high-dimensional vectors for AI." }
     ],
     colors: {
       bg: 'from-pink-500 to-rose-500',
