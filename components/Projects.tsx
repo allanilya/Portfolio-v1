@@ -26,6 +26,7 @@ import { useState, useEffect } from 'react';
 import { Github, ExternalLink, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { projects } from '@/lib/projects';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getTechColor } from '@/lib/skillsData';
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
@@ -33,6 +34,8 @@ export default function Projects() {
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [xOffset, setXOffset] = useState(270); // Default to desktop value
   const [leftRightScale, setLeftRightScale] = useState(0.75); // Default to desktop value
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
   // Update x offset and scale based on screen size
   useEffect(() => {
@@ -54,63 +57,8 @@ export default function Projects() {
     return () => window.removeEventListener('resize', updateResponsiveValues);
   }, []);
 
-  // Tech stack color mapping - matches Skills.tsx categories
-  const getTechColor = (tech: string): string => {
-    // Skills categories from Skills.tsx (matching exactly)
-    const skillCategories = [
-      { skills: ["Python", "TypeScript", "JavaScript", "Java", "SQL", "R", "Swift", "PHP"], color: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' },
-      { skills: ["React", "Next.js", "Tailwind CSS", "Radix UI"], color: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' },
-      { skills: ["Flask", "Django", "Spring Boot", "Node.js", "REST APIs"], color: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' },
-      { skills: ["LangChain", "LangGraph", "TensorFlow", "PyTorch", "Scikit-learn", "AWS Bedrock"], color: 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200' },
-      { skills: ["AWS", "Docker", "DynamoDB", "Elastic Beanstalk", "Lambda", "API Gateway"], color: 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200' },
-      { skills: ["Pandas", "NumPy", "Plotly", "Spark", "NLTK", "Spacy", "Beautiful Soup"], color: 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200' },
-      { skills: ["MySQL", "MongoDB", "Pinecone", "FAISS", "Vector Databases"], color: 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200' },
-    ];
-
-    // Check if tech exists in Skills categories
-    for (const category of skillCategories) {
-      if (category.skills.some(skill => skill.toLowerCase() === tech.toLowerCase())) {
-        return category.color;
-      }
-    }
-
-    // Hardcoded mappings for technologies NOT in Skills.tsx
-    const extraTechMap: Record<string, string> = {
-      // AI/ML - Orange
-      'claude sonnet 4.5': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'lstm': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'gru': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'arima': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'random forest': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'logistic regression': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'knn': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'naive bayes': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'decision tree': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-      'smote': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-
-      // Cloud & DevOps - Indigo
-      'vercel': 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200',
-
-      // Data Science - Teal
-      'statsmodels': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200',
-      'yfinance': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200',
-      'jupyter notebook': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200',
-
-      // Other
-      'shiny': 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200', // R framework
-      '1blocker': 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200',
-      'css': 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
-    };
-
-    // Check hardcoded extras
-    const normalized = tech.toLowerCase();
-    if (extraTechMap[normalized]) {
-      return extraTechMap[normalized];
-    }
-
-    // Default gray for anything else
-    return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200';
-  };
+  // Tech stack colors now come from /lib/skillsData.ts
+  // This ensures consistency with the Skills component
 
   /**
    * Advances the carousel to the next project in the main view
@@ -126,6 +74,32 @@ export default function Projects() {
   const prevProject = () => {
     setSlideDirection('left');
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  // Minimum swipe distance (in px) to trigger navigation
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextProject();
+    } else if (isRightSwipe) {
+      prevProject();
+    }
   };
 
   /**
@@ -268,7 +242,12 @@ export default function Projects() {
         {/* Carousel Controls */}
         <div className="relative">
           {/* Project Cards - Carousel Focus Layout */}
-          <div className="relative flex items-center justify-center min-h-[400px] sm:min-h-[460px] md:min-h-[500px] px-4">
+          <div
+            className="relative flex items-center justify-center min-h-[400px] sm:min-h-[460px] md:min-h-[500px] px-4"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <AnimatePresence mode="popLayout">
               {getVisibleProjects().map((project) => (
                 <motion.div
@@ -423,19 +402,19 @@ export default function Projects() {
     {/* Project Modal - Outside section to avoid z-index stacking context issues */}
     {selectedProject !== null && (
       <div
-        className="fixed inset-0 flex items-center justify-center z-[9999] p-4 overflow-y-auto backdrop-blur-sm"
+        className="fixed inset-0 flex items-center justify-center z-[24] p-4 overflow-y-auto backdrop-blur-sm"
         onClick={() => setSelectedProject(null)}
         style={{ zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
       >
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-6 lg:p-6 relative modal-content-animate"
+              className="bg-gray-800 rounded-lg max-w-[85vw] sm:max-w-[90vw] md:max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-6 lg:p-6 relative modal-content-animate text-gray-100"
               onClick={(e) => e.stopPropagation()}
               style={{ zIndex: 10000 }}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors z-50"
+                className="absolute top-4 right-4 p-2 hover:bg-gray-700 rounded-full transition-colors z-24"
                 aria-label="Close modal"
               >
                 <X className="w-6 h-6" />
@@ -443,10 +422,10 @@ export default function Projects() {
 
               {projects.find((p) => p.id === selectedProject) && (
                 <>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4 pr-12">
                     {projects.find((p) => p.id === selectedProject)!.title}
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
+                  <p className="text-gray-300 mb-6 text-base md:text-lg leading-relaxed">
                     {projects.find((p) => p.id === selectedProject)!.description}
                   </p>
 
@@ -454,14 +433,14 @@ export default function Projects() {
                   {projects.find((p) => p.id === selectedProject)!.liveUrl && (
                     <div className="mb-6">
                       <h4 className="text-lg md:text-xl font-semibold mb-3">Live Preview</h4>
-                      <div className="relative w-full rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-lg">
-                        <div className="bg-gray-100 dark:bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-200 dark:border-gray-700">
+                      <div className="relative w-full rounded-lg overflow-hidden border-2 border-gray-700 shadow-lg">
+                        <div className="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-700">
                           <div className="flex gap-2">
                             <div className="w-3 h-3 rounded-full bg-red-500"></div>
                             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                             <div className="w-3 h-3 rounded-full bg-green-500"></div>
                           </div>
-                          <span className="text-xs text-gray-600 dark:text-gray-400 ml-2">
+                          <span className="text-xs text-gray-400 ml-2">
                             {projects.find((p) => p.id === selectedProject)!.liveUrl}
                           </span>
                         </div>
@@ -498,7 +477,7 @@ export default function Projects() {
                         href={projects.find((p) => p.id === selectedProject)!.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors"
+                        className="flex items-center gap-2 px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
                       >
                         <Github className="w-5 h-5" />
                         View on GitHub
@@ -519,14 +498,14 @@ export default function Projects() {
 
                   {/* Navigation Controls - Arrows and Dots */}
                   {projects.length > 1 && (
-                    <div className="flex items-center justify-center gap-4 mt-5 pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center justify-center gap-4 mt-5 pt-2 border-t border-gray-700">
                       {/* Previous Button */}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           prevProjectInModal();
                         }}
-                        className="bg-gray-800 dark:bg-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-700 dark:border-gray-600"
+                        className="bg-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-600"
                         aria-label="Previous project"
                       >
                         <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
@@ -545,8 +524,8 @@ export default function Projects() {
                               }}
                               className={`w-3 h-3 rounded-full transition-all ${
                                 currentIdx === index
-                                  ? 'bg-blue-600 dark:bg-blue-400 scale-125'
-                                  : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                                  ? 'bg-blue-400 scale-125'
+                                  : 'bg-gray-600 hover:bg-gray-500'
                               }`}
                               aria-label={`Go to project ${index + 1}`}
                             />
@@ -560,7 +539,7 @@ export default function Projects() {
                           e.stopPropagation();
                           nextProjectInModal();
                         }}
-                        className="bg-gray-800 dark:bg-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-700 dark:border-gray-600"
+                        className="bg-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 border border-gray-600"
                         aria-label="Next project"
                       >
                         <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
