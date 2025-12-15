@@ -34,6 +34,8 @@ export default function Projects() {
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [xOffset, setXOffset] = useState(270); // Default to desktop value
   const [leftRightScale, setLeftRightScale] = useState(0.75); // Default to desktop value
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
   // Update x offset and scale based on screen size
   useEffect(() => {
@@ -72,6 +74,32 @@ export default function Projects() {
   const prevProject = () => {
     setSlideDirection('left');
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  // Minimum swipe distance (in px) to trigger navigation
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextProject();
+    } else if (isRightSwipe) {
+      prevProject();
+    }
   };
 
   /**
@@ -214,7 +242,12 @@ export default function Projects() {
         {/* Carousel Controls */}
         <div className="relative">
           {/* Project Cards - Carousel Focus Layout */}
-          <div className="relative flex items-center justify-center min-h-[400px] sm:min-h-[460px] md:min-h-[500px] px-4">
+          <div
+            className="relative flex items-center justify-center min-h-[400px] sm:min-h-[460px] md:min-h-[500px] px-4"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <AnimatePresence mode="popLayout">
               {getVisibleProjects().map((project) => (
                 <motion.div
