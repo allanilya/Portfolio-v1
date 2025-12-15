@@ -21,6 +21,7 @@
 import { useState, useEffect } from 'react';
 import { skillCategories } from '@/lib/skillsData';
 import { X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Skills() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -195,25 +196,33 @@ export default function Skills() {
             </div>
 
             {/* Selected Skill Details - Only show if a skill is selected */}
-            {selectedSkill.skillName && (
-              <div>
-                {/* Skill Title */}
-                <div className="flex justify-center mb-4">
-                  <h4 className={`text-2xl md:text-3xl font-bold ${skillCategories[selectedSkill.categoryIndex].colors.text}`}>
-                    {selectedSkill.skillName}
-                  </h4>
-                </div>
+            <AnimatePresence mode="wait">
+              {selectedSkill.skillName && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0, y: -10 }}
+                  animate={{ opacity: 1, height: 'auto', y: 0 }}
+                  exit={{ opacity: 0, height: 0, y: -10 }}
+                  transition={{ duration: 0.2, ease: 'easeInOut' }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  {/* Skill Title */}
+                  <div className="flex justify-center mb-4">
+                    <h4 className={`text-2xl md:text-3xl font-bold ${skillCategories[selectedSkill.categoryIndex].colors.text}`}>
+                      {selectedSkill.skillName}
+                    </h4>
+                  </div>
 
-                {/* Skill Description */}
-                <div className="text-center">
-                  <p className="text-gray-300 text-lg md:text-lg leading-relaxed">
-                    {skillCategories[selectedSkill.categoryIndex].skills.find(
-                      skill => skill.name === selectedSkill.skillName
-                    )?.description}
-                  </p>
-                </div>
-              </div>
-            )}
+                  {/* Skill Description */}
+                  <div className="text-center">
+                    <p className="text-gray-300 text-lg md:text-lg leading-relaxed">
+                      {skillCategories[selectedSkill.categoryIndex].skills.find(
+                        skill => skill.name === selectedSkill.skillName
+                      )?.description}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       )}
