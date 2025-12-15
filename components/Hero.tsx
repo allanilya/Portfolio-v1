@@ -41,7 +41,7 @@ export default function Hero() {
             <img
               src="/profilepic.jpeg"
               alt="Allan Ilyasov"
-              className="w-full h-full object-cover object-[0%_0%] scale-120"
+              className="w-full h-full object-cover object-left-top scale-115"
             />
           </div>
         </div>
