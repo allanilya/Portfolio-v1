@@ -196,25 +196,25 @@ export default function Projects() {
       scale: leftRightScale,
       x: -xOffset,
       opacity: 1,
-      zIndex: 10,
+      zIndex: 1,
     },
     center: {
       scale: 1,
       x: 0,
       opacity: 1,
-      zIndex: 20,
+      zIndex: 30,
     },
     right: {
       scale: leftRightScale,
       x: xOffset,
       opacity: 1,
-      zIndex: 10,
+      zIndex: 1,
     },
   };
 
   const exitVariants = {
-    right: { x: -220, scale: 0.6, opacity: 0 },
-    left: { x: 220, scale: 0.6, opacity: 0 },
+    right: { x: -220, scale: 0.6, opacity: 0, zIndex: 0 },
+    left: { x: 220, scale: 0.6, opacity: 0, zIndex: 0 },
   };
 
   return (
@@ -257,6 +257,7 @@ export default function Projects() {
                     opacity: 0,
                     scale: 0.6,
                     x: slideDirection === 'right' ? 220 : -220,
+                    zIndex: project.slot === 'center' ? 30 : 1,
                   }}
                   animate={SLOT[project.slot as 'left' | 'center' | 'right']}
                   exit={exitVariants[slideDirection || 'right']}
